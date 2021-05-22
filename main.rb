@@ -1,7 +1,14 @@
 require 'icalendar'
 require 'active_support/core_ext/numeric/time.rb'
+require 'fileutils'
 
 Exchange = Struct.new(:name, :url, :funding_timings, keyword_init: true)
+
+def write_cal(name, cal)
+  cal.to_ical
+  FileUtils.mkdir_p 'calendars'
+  File.write("calendars/#{name}.ics", cal.to_ical)
+end
 
 # Funding timings are in UTC
 exchanges = [
@@ -11,20 +18,25 @@ exchanges = [
   Exchange.new(name: "FTX", url: "https://www.ftx.com/", funding_timings: (0..23).map {|i| "#{ i.to_s.rjust(2, '0')}:00"})
 ]
 
-cal = Icalendar::Calendar.new
+all_cal = Icalendar::Calendar.new
 
 exchanges.each do |ex|
+  ex_cal = Icalendar::Calendar.new
   ex.funding_timings.each.with_index(1) do |funding_timing, index|
     h, m = funding_timing.split(":").map(&:to_i)
-    cal.event do |e|
-      start = DateTime.civil(2021, 1, 1, h, m)
-      e.dtstart = start
-      e.dtend = start + 30.minutes
-      e.summary = "#{ex.name} Funding #{index}"
-      e.url = ex.url
-      e.rrule = Icalendar::Values::Recur.new("FREQ=DAILY")
-    end
+    start = DateTime.civil(2021, 1, 1, h, m)
+    event = Icalendar::Event.new
+    event.dtstart = start
+    event.dtend = start + 30.minutes
+    event.summary = "#{ex.name} Funding #{index}"
+    event.url = ex.url
+    event.rrule = Icalendar::Values::Recur.new("FREQ=DAILY")
+
+    ex_cal.add_event(event)
+    all_cal.add_event(event)
   end
+
+  write_cal(ex.name, ex_cal)
 end
 
-puts cal.to_ical
+write_cal("all", all_cal)
