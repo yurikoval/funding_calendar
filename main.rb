@@ -6,8 +6,8 @@ Exchange = Struct.new(:name, :url, :funding_timings, keyword_init: true)
 
 def write_cal(name, cal)
   cal.to_ical
-  FileUtils.mkdir_p 'calendars'
-  File.write("calendars/#{name}.ics", cal.to_ical)
+  FileUtils.mkdir_p 'docs/calendars'
+  File.write("docs/calendars/#{name}.ics", cal.to_ical)
 end
 
 # Funding timings are in UTC
