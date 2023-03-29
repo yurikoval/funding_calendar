@@ -13,9 +13,8 @@ end
 # Funding timings are in UTC
 exchanges = [
   Exchange.new(name: "Bitmex", url: "https://www.bitmex.com/", funding_timings: ["04:00", "12:00", "20:00"]),
-  Exchange.new(name: "OkEx", url: "https://www.okex.com/", funding_timings: ["00:00", "08:00", "16:00"]),
+  Exchange.new(name: "OKX", url: "https://www.okx.com/", funding_timings: ["00:00", "08:00", "16:00"]),
   Exchange.new(name: "Binance.com", url: "https://www.binance.com/", funding_timings: ["00:00", "08:00", "16:00"]),
-  Exchange.new(name: "FTX", url: "https://www.ftx.com/", funding_timings: (0..23).map {|i| "#{ i.to_s.rjust(2, '0')}:00"})
 ]
 
 all_cal = Icalendar::Calendar.new

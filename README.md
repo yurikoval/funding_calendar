@@ -7,8 +7,7 @@ Accompanying blog post: https://www.yurikoval.com/blog/2021/05/perpetual-swaps-f
 * [All exchanges](docs/calendars/all.ics)
 * [Binance](docs/calendars/Binance.com.ics)
 * [Bitmex](docs/calendars/Bitmex.ics)
-* [FTX](docs/calendars/FTX.ics)
-* [OkEx](docs/calendars/OkEx.ics)
+* [OKX](docs/calendars/OkEx.ics)
 
 Licensed under MIT. Please send a PR if you would like to add an exchange or find a bug.
 
