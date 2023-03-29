@@ -23,7 +23,7 @@ exchanges.each do |ex|
   ex_cal = Icalendar::Calendar.new
   ex.funding_timings.each.with_index(1) do |funding_timing, index|
     h, m = funding_timing.split(":").map(&:to_i)
-    start = DateTime.civil(2021, 1, 1, h, m)
+    start = DateTime.civil(2023, 1, 1, h, m)
     event = Icalendar::Event.new
     event.dtstart = start
     event.dtend = start + 30.minutes
